@@ -28,7 +28,11 @@ export default class Loan extends Component {
         	<li>Loan-to-value : {details.ltv}</li>
 
         </ul>
-        <button className="loan-button">Invest in Loan</button>
+        <button className="loan-button" 
+        		onClick={() => {
+        			this.props.toggleModal()
+        		}}>Invest in Loan
+        </button>
       </div>
     );
   }

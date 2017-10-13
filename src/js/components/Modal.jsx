@@ -24,16 +24,18 @@ export default class Modal extends React.Component {
       <div className="backdrop">
         <div className="modal loan">
           <div className="close-button" onClick={this.props.onClose}>&times;</div>
-          <div className="modal-title loan-title"></div>
+          <div className="modal-title loan-title">{details.title}</div>
           <ul className="loan-details">
-            
+            <li>Total amount : £{details.amount}</li>
+            <li>Annual return : {details.annualised_return}</li>
+            <li>Loan ends in : {this.props.convertTime(details.term_remaining)}</li>
           </ul>
           <div className="footer">
             
             <form action="">
               <label htmlFor="number">Investment amount (£)</label>
               <input type="number" id="number" placeholder="Loan" onChange={e => this.updateInputValue(e)} />
-              <input className="form-button" type="button" value="Invest Now" onClick={() => {this.props.onClose()}} />
+              <input className="form-button" type="button" value="Invest Now" onClick={() => {this.props.updateTotal(this.state.inputValue); this.props.onClose()}} />
             </form>
           </div>
         </div>

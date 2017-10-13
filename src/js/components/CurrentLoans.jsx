@@ -9,11 +9,15 @@ export default class CurrentLoans extends Component {
 		this.state = {
 			currentLoans: [],
 			total: null,
-			isOpen: false
-			
+			isOpen: false,
+			activeLoan: null
 		}
 		this.numberWithCommas = this.numberWithCommas.bind(this);
 		this.toggleModal = this.toggleModal.bind(this);
+		this.updateActiveLoan = this.updateActiveLoan.bind(this);
+		this.updateTotal = this.updateTotal.bind(this);
+		this.convertTime = this.convertTime.bind(this);
+
 
 	}
 
@@ -52,14 +56,39 @@ export default class CurrentLoans extends Component {
 	    });
 	}
 
+	updateActiveLoan(index){
+		this.setState({
+			activeLoan: index
+		})
+	}
+
+	updateTotal(value){
+		const updatedTotal = this.state.total - value;
+		let currentLoans = [...this.state.currentLoans];
+		const stringToNumber = parseFloat(currentLoans[this.state.activeLoan].amount.replace(/,/g, ''));
+		currentLoans[this.state.activeLoan].amount = this.numberWithCommas(stringToNumber - value);
+		this.setState({
+			currentLoans,
+			total: updatedTotal
+		})
+	}
+	convertTime(seconds){
+		const days = Math.floor(seconds / (24*60*60));
+	    const daysms=seconds % (24*60*60);
+	    const hours = Math.floor((daysms)/(60*60));
+	    
+	    
+	    return `${days} Days ${hours} Hours`
+	}
+
   render() {
     return (
       <div>
         {
-			Object.keys(this.state.currentLoans).map(key => <Loan key={key} index={key} details={this.state.currentLoans[key]} toggleModal={this.toggleModal}/>)			
+			Object.keys(this.state.currentLoans).map(key => <Loan key={key} index={key} details={this.state.currentLoans[key]} convertTime={this.convertTime} toggleModal={this.toggleModal} updateActiveLoan={this.updateActiveLoan}/>)			
 		}
 		<div className="total">Total amount available for investments: <span>£{this.numberWithCommas(+this.state.total)}</span></div>
-		<Modal show={this.state.isOpen} onClose={this.toggleModal}/>
+		<Modal show={this.state.isOpen} onClose={this.toggleModal} convertTime={this.convertTime} details={this.state.currentLoans[this.state.activeLoan]} updateTotal={this.updateTotal} />
       </div>
     );
   }

@@ -1,0 +1,46 @@
+.loan{
+	padding: 0;
+	margin-top: 15px;
+	background-color: white;
+	overflow: hidden;
+	transform: scale(1);
+	transition: 0.25s;
+	&:hover{
+		box-shadow: 0px 6px 15px 0px rgba(0, 0, 0, 0.35);
+		transform: scale(1.01);
+	}
+	&.modal:hover{
+		transform: scale(1);
+	}
+	
+	.loan-title{
+		background-color: #3979ED;
+		color: white;
+		margin: 0;
+		padding: 10px;
+		box-shadow: 0px 3px 8px 0px rgba(0, 0, 0, 0.35);
+		font-weight: 300;
+	}
+	.loan-details{
+		list-style-type: none;
+		padding: 10px;
+		li{
+			font-size: 1em;
+		}
+	}
+	.loan-button{
+		display: block;
+		padding: 10px;
+    	margin: 10px 10px 10px auto;
+    	background-color: #EDB425;
+    	color: white;
+    	font-weight: 300;
+    	border: none;
+    	font-size: 1em;
+    	transition: 0.25s;
+    	&:hover{
+    		box-shadow: 0px 3px 8px 0px rgba(0, 0, 0, 0.35);
+    	}
+		
+	}
+}
